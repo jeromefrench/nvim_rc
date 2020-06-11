@@ -1,30 +1,30 @@
 
 
 
-"~ swap case character
+"~ swap case character,
 " USE SHIFT E
 " % go to next bracket
 " ZZ in normal mode saves the current file if modified and exits or closes the current window/tab 
 
 " use :botright split or :bo sp, it does what you want
 "ctrl + e to cancel autocompletion
-" pen the explorer in another tabpage using :Texplore
+" open the explorer in another tabpage using :Texplore
 " You can access the global bookmarks in the same way as local : :marks
 " comman tree . dans le terminal
-"use find + *file tab
-"use :b + *file tab
-"use c / 
-"edit to folder in a file browser
+" use find + *file tab
+" use :b + *file tab
+" use c / 
+" edit to folder in a file browser
 " show me what this command do in insert mode :    help i_^n     ctrl n    c_^n   pour command mode
 " try helpgrep qqchose   puis cn pour quickfix navigation
-":windo diffthis
+" :windo diffthis
 " ]m   go to the begining of next method
 " [[ : sections backward or to the previous '{' in the first column.
 
 
 "mark shows all the mark and 'number jump to it
 "ctrl-o et ctle-i cycle trough jumps
-"g;  g, cycle through :changes
+" g;  g, cycle through :changes
 
 " pour set les error format
 " :set efm=%m\ in\ %f\ on\ line\ %l
@@ -171,7 +171,7 @@ let g:user_emmet_leader_key=','
 let g:airline_powerline_fonts = 1
 
 
-
+nnoremap gb :ls<CR>:b
 
 
 
@@ -296,7 +296,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 
 
-
+:inoremap ,jk ,<esc>
 
 
 
@@ -335,6 +335,10 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 ":inoremap [[ []<esc>i
 ":inoremap {{ {}<esc>i
 ":inoremap ,( ();<esc>h
+
+:inoremap bb <esc>%%a
+
+:nnoremap == :%le<CR>gg=G<C-o>
 
 
 "underscrore as key boundary
