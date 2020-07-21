@@ -1,6 +1,9 @@
 
 
 
+
+
+
 "~ swap case character,
 " USE SHIFT E
 " % go to next bracket
@@ -22,12 +25,14 @@
 " [[ : sections backward or to the previous '{' in the first column.
 
 
+
 "mark shows all the mark and 'number jump to it
 "ctrl-o et ctle-i cycle trough jumps
 " g;  g, cycle through :changes
 
 " pour set les error format
 " :set efm=%m\ in\ %f\ on\ line\ %l
+
 
 
 "********************************************
@@ -87,13 +92,18 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'terryma/vim-smooth-scroll'
-Plugin 'SirVer/ultisnips'  " engine snippet
+"Plugin 'SirVer/ultisnips'  " engine snippet
 Plugin 'honza/vim-snippets' "snippet template
 Plugin 'posva/vim-vue'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'mattn/emmet-vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf',
+Plugin 'junegunn/fzf.vim'
+Plugin 'inside/vim-grep-operator'
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -131,6 +141,54 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:let mapleader = " "
+
+inoremap nm =
+
+inoremap <C-j> <CR><ESC><s-o>
+nnoremap <C-j> <CR><ESC><s-o>
+
+
+
+
+" visual grep operator
+nmap <space>g <Plug>GrepOperatorOnCurrentDirectory
+vmap <space>g <Plug>GrepOperatorOnCurrentDirectory
+nmap <space><space>g <Plug>GrepOperatorWithFilenamePrompt
+vmap <space><space>g <Plug>GrepOperatorWithFilenamePrompt
+
+let g:grep_operator = 'Ack'
+
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+
+" netrw mapping overide
+augroup netrw_mapping
+    autocmd!
+    autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+    noremap <buffer> i h
+	"Move around window
+	nnoremap <buffer> sh <C-w>h
+	nnoremap <buffer> sj <C-w>j
+	nnoremap <buffer> sk <C-w>k
+	nnoremap <buffer> sl <C-w>l
+
+	"Split
+	nnoremap <buffer> so <C-w>s
+	nnoremap <buffer> sv <C-w>v
+
+
+	nnoremap <c-t> :Files<CR>
+	nnoremap <c-b> :Buffers<CR>
+endfunction
+
+
 
 ""nerdtree toggle
 map <C-n> :e.<CR>
@@ -164,7 +222,7 @@ else
 endif
 
 
-let g:user_emmet_leader_key=','
+let g:user_emmet_leader_key='<C-z>'
 
 
 
@@ -173,13 +231,15 @@ let g:airline_powerline_fonts = 1
 
 nnoremap gb :ls<CR>:b
 
+nnoremap <c-t> :Files<CR>
+nnoremap <c-b> :Buffers<CR>
 
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "disable preprocessors langage check
 let g:vue_pre_processors = []
@@ -190,7 +250,7 @@ set clipboard=unnamed
 "jj for echap
 :imap jj <Esc>:w<CR>
 :imap jk <Esc>:w<CR>
-:nnoremap ;; <Esc>:w<CR>
+:nnoremap <s-s> <Esc>:w<CR>
 
 "put synthasic color
 syntax on
@@ -251,14 +311,14 @@ runtime macros/matchit.vim
 nnoremap <Left>e <C-e>
 
 "add space in normal mode
-:nnoremap <space> i<space><esc>
+" :nnoremap <space> i<space><esc>
 "yank until end of the line
 :nnoremap Y y$
 "automatic save when ctrl t ctag back
-:nnoremap <C-t> :w<CR><C-t>zz
+":nnoremap <C-t> :w<CR><C-t>zz
 :nnoremap <C-]> :w<CR><C-]>zz
 "remove hightlight
-nnoremap ,<space> :noh<cr>
+nnoremap <space>, :noh<cr>
 
 "Move around window
 :nnoremap sh <C-w>h
@@ -273,8 +333,8 @@ nnoremap ,<space> :noh<cr>
 "pour le plugin qui scrool
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 15, 1)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 15, 1)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 15, 2)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 15, 2)<CR>
+"noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 15, 2)<CR>
+"noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 15, 2)<CR>
 
 set path+=**
 
@@ -296,7 +356,6 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 
 
-:inoremap ,jk ,<esc>
 
 
 
@@ -336,7 +395,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 ":inoremap {{ {}<esc>i
 ":inoremap ,( ();<esc>h
 
-:inoremap bb <esc>%%a
+:inoremap bb <esc>l%%a
 
 :nnoremap == :%le<CR>gg=G<C-o>
 
@@ -349,6 +408,3 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 ", main
 " nnoremap ,main :read /Users/jchardin/.vim/main.c <CR>
 " nnoremap ,printf :read /Users/jchardin/.vim/printf.c <CR>
-
-
-
