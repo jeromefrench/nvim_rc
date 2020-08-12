@@ -1,6 +1,8 @@
 
+scriptencoding utf-8
+set encoding=utf-8
 
-
+set redrawtime=10000
 
 
 
@@ -73,7 +75,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'pbondoer/vim-42header'
 " Plugin 'majutsushi/tagbar'
 Plugin 'morhetz/gruvbox'
-" Plugin 'sheerun/vim-polyglot'
+Plugin 'sheerun/vim-polyglot'
 " Plugin 'vim-airline/vim-airline'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-line'
@@ -92,17 +94,21 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'terryma/vim-smooth-scroll'
-"Plugin 'SirVer/ultisnips'  " engine snippet
+Plugin 'SirVer/ultisnips'  " engine snippet
 Plugin 'honza/vim-snippets' "snippet template
 Plugin 'posva/vim-vue'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'mattn/emmet-vim'
-Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/fzf',
 Plugin 'junegunn/fzf.vim'
 Plugin 'inside/vim-grep-operator'
+Plugin 'mileszs/ack.vim'
+Plugin 'vim-vdebug/vdebug'
+Plugin 'Yggdroot/indentLine'
+Plugin 'ludovicchabant/vim-gutentags'
+
 
 
 " The following are examples of different formats supported.
@@ -150,7 +156,6 @@ nnoremap <C-j> <CR><ESC><s-o>
 
 
 
-
 " visual grep operator
 nmap <space>g <Plug>GrepOperatorOnCurrentDirectory
 vmap <space>g <Plug>GrepOperatorOnCurrentDirectory
@@ -160,9 +165,30 @@ vmap <space><space>g <Plug>GrepOperatorWithFilenamePrompt
 let g:grep_operator = 'Ack'
 
 
+
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+
+
+
+
+
+
+
+
+
+
+
+let g:vdebug_options = {}
+let g:vdebug_options["port"] = 9000
+
+
+
+autocmd FileType javascript UltiSnipsAddFiletypes html
+autocmd FileType javascriptreact UltiSnipsAddFiletypes html
+autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript
 
 
 " netrw mapping overide
@@ -238,8 +264,8 @@ nnoremap <c-b> :Buffers<CR>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "disable preprocessors langage check
 let g:vue_pre_processors = []
@@ -268,15 +294,16 @@ nnoremap <C-W>. 5<C-W>>
 :match ExtraWhitespace /\s\+$/
 
 "met un | s=pour les tabs attention metre un espace a la fin
-:set list lcs=tab:\|\ 
+:set list lcs=tab:\|\
 
 "set tab for indentation
-:set noexpandtab
-:set copyindent
-:set preserveindent
-:set softtabstop=0
-:set shiftwidth=4
-:set tabstop=4
+":set noexpandtab
+":set copyindent
+":set preserveindent
+:set softtabstop=2
+:set shiftwidth=2
+:set tabstop=2
+:set et
 
 :set nopaste
 
@@ -335,6 +362,9 @@ noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 15, 1)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 15, 1)<CR>
 "noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 15, 2)<CR>
 "noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 15, 2)<CR>
+
+nnoremap gf :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
+
 
 set path+=**
 
