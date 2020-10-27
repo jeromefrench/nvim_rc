@@ -1,6 +1,8 @@
 
+scriptencoding utf-8
+set encoding=utf-8
 
-
+set redrawtime=10000
 
 
 
@@ -73,7 +75,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'pbondoer/vim-42header'
 " Plugin 'majutsushi/tagbar'
 Plugin 'morhetz/gruvbox'
-" Plugin 'sheerun/vim-polyglot'
+Plugin 'sheerun/vim-polyglot'
 " Plugin 'vim-airline/vim-airline'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-line'
@@ -92,17 +94,24 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'terryma/vim-smooth-scroll'
-"Plugin 'SirVer/ultisnips'  " engine snippet
+Plugin 'SirVer/ultisnips'  " engine snippet
 Plugin 'honza/vim-snippets' "snippet template
 Plugin 'posva/vim-vue'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'mattn/emmet-vim'
-Plugin 'mileszs/ack.vim'
 Plugin 'junegunn/fzf',
 Plugin 'junegunn/fzf.vim'
 Plugin 'inside/vim-grep-operator'
+Plugin 'mileszs/ack.vim'
+"Plugin 'vim-vdebug/vdebug'
+Plugin 'Yggdroot/indentLine'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'dense-analysis/ale'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'voldikss/vim-floaterm'
 
 
 " The following are examples of different formats supported.
@@ -141,13 +150,19 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <SPACE> <Nop>
 :let mapleader = " "
+
+
+
+map <Leader><Leader> <Plug>(easymotion-prefix)
+
+
 
 inoremap nm =
 
 inoremap <C-j> <CR><ESC><s-o>
 nnoremap <C-j> <CR><ESC><s-o>
-
 
 
 
@@ -160,32 +175,57 @@ vmap <space><space>g <Plug>GrepOperatorWithFilenamePrompt
 let g:grep_operator = 'Ack'
 
 
+
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+ let g:ackprg = 'ag --vimgrep'
 endif
+
+
+
+
+
+let g:ale_fixers = {
+   \ 'javascriptreac': ['eslint']
+   \ }
+
+
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+
+let g:ale_fix_on_save = 1
+
+
+let g:vdebug_options = {}
+let g:vdebug_options["port"] = 9000
+
+
+
+autocmd FileType javascript UltiSnipsAddFiletypes html
+autocmd FileType javascriptreact UltiSnipsAddFiletypes html
+autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript
 
 
 " netrw mapping overide
 augroup netrw_mapping
-    autocmd!
-    autocmd filetype netrw call NetrwMapping()
+ autocmd!
+ autocmd filetype netrw call NetrwMapping()
 augroup END
 
 function! NetrwMapping()
-    noremap <buffer> i h
-	"Move around window
-	nnoremap <buffer> sh <C-w>h
-	nnoremap <buffer> sj <C-w>j
-	nnoremap <buffer> sk <C-w>k
-	nnoremap <buffer> sl <C-w>l
+ noremap <buffer> i h
+ "Move around window
+ nnoremap <buffer> sh <C-w>h
+ nnoremap <buffer> sj <C-w>j
+ nnoremap <buffer> sk <C-w>k
+ nnoremap <buffer> sl <C-w>l
 
-	"Split
-	nnoremap <buffer> so <C-w>s
-	nnoremap <buffer> sv <C-w>v
+ "Split
+ nnoremap <buffer> so <C-w>s
+ nnoremap <buffer> sv <C-w>v
 
 
-	nnoremap <c-t> :Files<CR>
-	nnoremap <c-b> :Buffers<CR>
+ nnoremap <c-t> :Files<CR>
+ nnoremap <c-b> :Buffers<CR>
 endfunction
 
 
@@ -212,13 +252,13 @@ highlight Normal ctermfg=145 ctermbg=00 guifg=#ABB2BF guibg=00
 " Highlight the active window even play nice with tmux splits
 "
 if has('nvim')
-    hi ActiveWindow ctermbg=none | hi InactiveWindow ctermbg=235
-    set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+ hi ActiveWindow ctermbg=none | hi InactiveWindow ctermbg=235
+ set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
-    au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow ctermbg=none | hi InactiveWindow ctermbg=235
-    au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow ctermbg=235 | hi InactiveWindow ctermbg=235
+ au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow ctermbg=none | hi InactiveWindow ctermbg=235
+ au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow ctermbg=235 | hi InactiveWindow ctermbg=235
 else
-    hi Normal ctermbg=None
+ hi Normal ctermbg=None
 endif
 
 
@@ -238,8 +278,8 @@ nnoremap <c-b> :Buffers<CR>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "disable preprocessors langage check
 let g:vue_pre_processors = []
@@ -267,18 +307,23 @@ nnoremap <C-W>. 5<C-W>>
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
 
-"met un | s=pour les tabs attention metre un espace a la fin
+" met un | s=pour les tabs attention metre un espace a la fin
 :set list lcs=tab:\|\ 
 
-"set tab for indentation
-:set noexpandtab
-:set copyindent
-:set preserveindent
-:set softtabstop=0
-:set shiftwidth=4
-:set tabstop=4
+""set tab for indentation
+"":set noexpandtab
+"":set copyindent
+"":set preserveindent
 
-:set nopaste
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
+set expandtab
+
+"set smarttab
+
+
+set nopaste
 
 
 "############################Configuration
@@ -335,6 +380,9 @@ noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 15, 1)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 15, 1)<CR>
 "noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 15, 2)<CR>
 "noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 15, 2)<CR>
+
+nnoremap gf :call fzf#vim#files('.', {'options':'--query '.expand('<cword>')})<CR>
+
 
 set path+=**
 
