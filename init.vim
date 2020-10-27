@@ -105,7 +105,6 @@ Plugin 'junegunn/fzf',
 Plugin 'junegunn/fzf.vim'
 Plugin 'inside/vim-grep-operator'
 Plugin 'mileszs/ack.vim'
-<<<<<<< HEAD
 "Plugin 'vim-vdebug/vdebug'
 Plugin 'Yggdroot/indentLine'
 Plugin 'ludovicchabant/vim-gutentags'
@@ -113,12 +112,6 @@ Plugin 'dense-analysis/ale'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'voldikss/vim-floaterm'
-=======
-Plugin 'vim-vdebug/vdebug'
-Plugin 'Yggdroot/indentLine'
-Plugin 'ludovicchabant/vim-gutentags'
-
->>>>>>> 6050c49159cec6b62e9cef645e34f73bce09642b
 
 
 " The following are examples of different formats supported.
@@ -191,7 +184,6 @@ endif
 
 
 
-<<<<<<< HEAD
 let g:ale_fixers = {
    \ 'javascriptreac': ['eslint']
    \ }
@@ -201,13 +193,6 @@ let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 
 let g:ale_fix_on_save = 1
-=======
-
-
-
-
-
->>>>>>> 6050c49159cec6b62e9cef645e34f73bce09642b
 
 
 let g:vdebug_options = {}
@@ -322,7 +307,6 @@ nnoremap <C-W>. 5<C-W>>
 :highlight ExtraWhitespace ctermbg=red guibg=red
 :match ExtraWhitespace /\s\+$/
 
-<<<<<<< HEAD
 " met un | s=pour les tabs attention metre un espace a la fin
 :set list lcs=tab:\|\ 
 
@@ -337,19 +321,6 @@ set tabstop=2
 set expandtab
 
 "set smarttab
-=======
-"met un | s=pour les tabs attention metre un espace a la fin
-:set list lcs=tab:\|\
-
-"set tab for indentation
-":set noexpandtab
-":set copyindent
-":set preserveindent
-:set softtabstop=2
-:set shiftwidth=2
-:set tabstop=2
-:set et
->>>>>>> 6050c49159cec6b62e9cef645e34f73bce09642b
 
 
 set nopaste
