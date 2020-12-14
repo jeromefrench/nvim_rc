@@ -56,11 +56,6 @@ set redrawtime=10000
 
 
 
-
-
-
-
-
 set nocompatible              " be iMproved, required
 "filetype off                  " required
 
@@ -77,6 +72,7 @@ Plugin 'pbondoer/vim-42header'
 Plugin 'morhetz/gruvbox'
 Plugin 'sheerun/vim-polyglot'
 " Plugin 'vim-airline/vim-airline'
+Plugin 'itchyny/lightline.vim'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-line'
 Plugin 'kana/vim-textobj-entire'
@@ -84,7 +80,6 @@ Plugin 'kana/vim-textobj-function'
 Plugin 'kana/vim-textobj-indent'
 " Plugin 'tkhren/vim-textobj-numeral'
 Plugin 'vim-scripts/ReplaceWithRegister'
-" Plugin 'easymotion/vim-easymotion'
 " Plugin 'vim-syntastic/syntastic'
 " Plugin 'gilligan/vim-lldb'
 " Plugin 'mhinz/vim-startify'
@@ -99,7 +94,6 @@ Plugin 'honza/vim-snippets' "snippet template
 Plugin 'posva/vim-vue'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'vim-airline/vim-airline'
 Plugin 'mattn/emmet-vim'
 Plugin 'junegunn/fzf',
 Plugin 'junegunn/fzf.vim'
@@ -110,8 +104,11 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'dense-analysis/ale'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'easymotion/vim-easymotion'
+" Plugin 'easymotion/vim-easymotion'
 Plugin 'voldikss/vim-floaterm'
+Plugin 'wellle/targets.vim'
+Plugin 'justinmk/vim-sneak'
+
 
 
 " The following are examples of different formats supported.
@@ -153,17 +150,20 @@ filetype plugin indent on    " required
 nnoremap <SPACE> <Nop>
 :let mapleader = " "
 
+" map <Leader><Leader> <Plug>(easymotion-prefix)
 
-
-map <Leader><Leader> <Plug>(easymotion-prefix)
-
-
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 inoremap nm =
 
+
 inoremap <C-j> <CR><ESC><s-o>
 nnoremap <C-j> <CR><ESC><s-o>
-
 
 
 " visual grep operator
@@ -175,13 +175,9 @@ vmap <space><space>g <Plug>GrepOperatorWithFilenamePrompt
 let g:grep_operator = 'Ack'
 
 
-
 if executable('ag')
  let g:ackprg = 'ag --vimgrep'
 endif
-
-
-
 
 
 let g:ale_fixers = {
@@ -224,6 +220,7 @@ function! NetrwMapping()
  nnoremap <buffer> sv <C-w>v
 
 
+ "FZF
  nnoremap <c-t> :Files<CR>
  nnoremap <c-b> :Buffers<CR>
 endfunction
@@ -290,7 +287,8 @@ set clipboard=unnamed
 "jj for echap
 :imap jj <Esc>:w<CR>
 :imap jk <Esc>:w<CR>
-:nnoremap <s-s> <Esc>:w<CR>
+":nnoremap <s-s> <Esc>:w<CR>
+:nnoremap ,s <Esc>:w<CR>
 
 "put synthasic color
 syntax on
@@ -403,25 +401,6 @@ let g:netrw_liststyle=3
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "tmux send-keys -t 0 \"make\" C-m
 "nmap ,f k:wa<CR>:!tmux send-keys -t 2 \"pkill -9 doom" C-m<CR><CR>k
 "nmap ,g :!tmux send-keys -t left \"clear && make && ./doom" C-m<CR><CR><CR>k
@@ -456,3 +435,18 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 ", main
 " nnoremap ,main :read /Users/jchardin/.vim/main.c <CR>
 " nnoremap ,printf :read /Users/jchardin/.vim/printf.c <CR>
+
+
+
+:nmap <C-P> ]p
+
+
+
+
+imap gcc <esc>gcci
+
+"autopairs plusgin
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<C-b>'
+
+let g:AutoPairsShortcutFastWrap = '<C-m>'
