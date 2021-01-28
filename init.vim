@@ -1,4 +1,5 @@
 
+
 scriptencoding utf-8
 set encoding=utf-8
 
@@ -67,7 +68,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'pbondoer/vim-42header'
+" Plugin 'pbondoer/vim-42header'
 " Plugin 'majutsushi/tagbar'
 Plugin 'morhetz/gruvbox'
 Plugin 'sheerun/vim-polyglot'
@@ -99,7 +100,7 @@ Plugin 'junegunn/fzf',
 Plugin 'junegunn/fzf.vim'
 Plugin 'inside/vim-grep-operator'
 Plugin 'mileszs/ack.vim'
-"Plugin 'vim-vdebug/vdebug'
+Plugin 'vim-vdebug/vdebug'
 Plugin 'Yggdroot/indentLine'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'dense-analysis/ale'
@@ -190,9 +191,13 @@ let g:ale_sign_warning = '⚠️'
 
 let g:ale_fix_on_save = 1
 
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 let g:vdebug_options = {}
 let g:vdebug_options["port"] = 9000
+
+
+
 
 
 
@@ -278,6 +283,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+
 "disable preprocessors langage check
 let g:vue_pre_processors = []
 
@@ -288,7 +294,8 @@ set clipboard=unnamed
 :imap jj <Esc>:w<CR>
 :imap jk <Esc>:w<CR>
 ":nnoremap <s-s> <Esc>:w<CR>
-:nnoremap ,s <Esc>:w<CR>
+" :nnoremap ,s <Esc>:w<CR>
+:nnoremap <space>s <Esc>:w<CR>
 
 "put synthasic color
 syntax on
@@ -361,7 +368,7 @@ nnoremap <Left>e <C-e>
 ":nnoremap <C-t> :w<CR><C-t>zz
 :nnoremap <C-]> :w<CR><C-]>zz
 "remove hightlight
-nnoremap <space>, :noh<cr>
+nnoremap <space>, :noh<cr>jk
 
 "Move around window
 :nnoremap sh <C-w>h
@@ -444,9 +451,25 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 
 imap gcc <esc>gcci
+imap zz <esc>zza
 
 "autopairs plusgin
-let g:AutoPairsFlyMode = 1
-let g:AutoPairsShortcutBackInsert = '<C-b>'
+" let g:AutoPairsFlyMode = 1
+" let g:AutoPairsShortcutBackInsert = '<C-b>'
 
-let g:AutoPairsShortcutFastWrap = '<C-m>'
+let g:AutoPairsShortcutFastWrap = '<C-d>'
+let g:AutoPairsShortcutJump = '<C-a>'
+" let g:AutoPairsShortcutToggle = '<C-a>'
+
+set autoindent
+set smartindent
+
+
+
+" push to talk for discord
+inoremap <F8> <nop>
+noremap <F8> <nop>
+
+
+:map <F8> <nop>
+map <F8> <nop>
