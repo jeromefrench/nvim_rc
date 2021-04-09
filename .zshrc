@@ -108,6 +108,9 @@ export PATH="/usr/local/opt/node@12/bin:$PATH"
 
 alias vim='nvim'
 alias helo='echo "hello"'
+# The option -i indicates that youll be prompted before you overwrite a file.
+alias mv='mv -i'
+alias cp='cp -i'
 
 
 # export PATH=/Applications/MAMP/bin/php/php7.1.8/bin:$PATH
@@ -124,7 +127,22 @@ function cdls() {
 alias c='cdls'
 
 
+# autosugestion 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '  ' autosuggest-accept
 bindkey '^ ' autosuggest-execute
+
+neofetch
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export PATH="/opt/local/bin/port:$PATH"
+
+
+source ~/.config/lf/lfcd.sh
+
+
+
+
+stty icrnl
 

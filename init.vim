@@ -153,10 +153,10 @@ nnoremap <SPACE> <Nop>
 
 " map <Leader><Leader> <Plug>(easymotion-prefix)
 
-map s <Plug>Sneak_s
-map S <Plug>Sneak_S
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
+" map f <Plug>Sneak_f
+" map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
@@ -221,13 +221,13 @@ function! NetrwMapping()
  nnoremap <buffer> sl <C-w>l
 
  "Split
- nnoremap <buffer> so <C-w>s
- nnoremap <buffer> sv <C-w>v
+ " nnoremap <buffer> do <C-w>s
+ " nnoremap <buffer> dv <C-w>v
 
 
  "FZF
  nnoremap <c-t> :Files<CR>
- nnoremap <c-b> :Buffers<CR>
+ nnoremap <space>b :Buffers<CR>
 endfunction
 
 
@@ -274,7 +274,7 @@ let g:airline_powerline_fonts = 1
 nnoremap gb :ls<CR>:b
 
 nnoremap <c-t> :Files<CR>
-nnoremap <c-b> :Buffers<CR>
+nnoremap <space>b :Buffers<CR>
 
 
 
@@ -473,3 +473,4 @@ noremap <F8> <nop>
 
 :map <F8> <nop>
 map <F8> <nop>
+set encoding=utf-8

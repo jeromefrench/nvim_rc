@@ -1,0 +1,7 @@
+
+map d
+
+map dd delete
+
+cmd trash %trash $fx
+
