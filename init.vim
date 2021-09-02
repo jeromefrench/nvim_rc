@@ -70,6 +70,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " Plugin 'pbondoer/vim-42header'
 " Plugin 'majutsushi/tagbar'
+Plugin 'preservim/tagbar'
 Plugin 'morhetz/gruvbox'
 Plugin 'sheerun/vim-polyglot'
 " Plugin 'vim-airline/vim-airline'
@@ -109,6 +110,8 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'voldikss/vim-floaterm'
 Plugin 'wellle/targets.vim'
 Plugin 'justinmk/vim-sneak'
+Plugin 'fatih/vim-go'
+
 
 
 
@@ -163,6 +166,14 @@ map T <Plug>Sneak_T
 inoremap nm =
 
 
+" tagbar togle
+nmap <F8> :TagbarToggle<CR>
+
+
+
+
+
+
 inoremap <C-j> <CR><ESC><s-o>
 nnoremap <C-j> <CR><ESC><s-o>
 
@@ -191,7 +202,7 @@ let g:ale_sign_warning = '⚠️'
 
 let g:ale_fix_on_save = 1
 
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 let g:vdebug_options = {}
 let g:vdebug_options["port"] = 9000
@@ -214,11 +225,6 @@ augroup END
 
 function! NetrwMapping()
  noremap <buffer> i h
- "Move around window
- nnoremap <buffer> sh <C-w>h
- nnoremap <buffer> sj <C-w>j
- nnoremap <buffer> sk <C-w>k
- nnoremap <buffer> sl <C-w>l
 
  "Split
  " nnoremap <buffer> do <C-w>s
@@ -265,6 +271,7 @@ endif
 
 
 let g:user_emmet_leader_key='<C-z>'
+" <C-Z>,.
 
 
 
@@ -344,8 +351,8 @@ set backspace=indent,eol,start
 "disable auto comment on new line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "generate Ctag each time I save
-autocmd BufWritePost *.c call system("ctags -R ./src/jeronemo ./includes")
-autocmd BufWritePost *.h call system("ctags -R ./includes")
+" autocmd BufWritePost *.c call system("ctags -R ./src/jeronemo ./includes")
+" autocmd BufWritePost *.h call system("ctags -R ./includes")
 "line under current line
 :set cursorline
 "to remove omnicompletion scratch window
@@ -371,14 +378,15 @@ nnoremap <Left>e <C-e>
 nnoremap <space>, :noh<cr>jk
 
 "Move around window
-:nnoremap sh <C-w>h
-:nnoremap sj <C-w>j
-:nnoremap sk <C-w>k
-:nnoremap sl <C-w>l
+:nnoremap wh <C-w>h
+:nnoremap wj <C-w>j
+:nnoremap wk <C-w>k
+:nnoremap wl <C-w>l
+:nnoremap mm <C-w><C-w>
 
 "Split
-:nnoremap so <C-w>s
-:nnoremap sv <C-w>v
+:nnoremap wo <C-w>s
+:nnoremap wv <C-w>v
 
 "pour le plugin qui scrool
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 15, 1)<CR>
@@ -458,7 +466,7 @@ imap zz <esc>zza
 " let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 let g:AutoPairsShortcutFastWrap = '<C-d>'
-let g:AutoPairsShortcutJump = '<C-a>'
+let g:AutoPairsShortcutJump = '<C-s>'
 " let g:AutoPairsShortcutToggle = '<C-a>'
 
 set autoindent
@@ -467,10 +475,75 @@ set smartindent
 
 
 " push to talk for discord
-inoremap <F8> <nop>
-noremap <F8> <nop>
+" inoremap <F8> <nop>
+" noremap <F8> <nop>
 
 
-:map <F8> <nop>
-map <F8> <nop>
+" :map <F8> <nop>
+" map <F8> <nop>
 set encoding=utf-8
+
+
+
+
+" get the file name in bar
+let g:lightline = {
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ }
+      \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
+
+
+
+" avoid gutentags error
+
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root  = ['package.json', '.git', '.hg', '.svn']
+" let g:gutentags_cache_dir = expand('~/.gutentags_cache')
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
+" let g:gutentags_generate_on_new = 1
+" let g:gutentags_generate_on_missing = 1
+" let g:gutentags_generate_on_write = 1
+" let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_ctags_extra_args = ['--tag-relative=yes', '--fields=+ailmnS']
+let g:gutentags_ctags_exclude = [
+\  '*.git', '*.svn', '*.hg',
+\  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
+\  '*-lock.json',  '*.lock',
+\  '*.min.*',
+\  '*.bak',
+\  '*.zip',
+\  '*.pyc',
+\  '*.class',
+\  '*.sln',
+\  '*.csproj', '*.csproj.user',
+\  '*.tmp',
+\  '*.cache',
+\  '*.vscode',
+\  '*.pdb',
+\  '*.exe', '*.dll', '*.bin',
+\  '*.mp3', '*.ogg', '*.flac',
+\  '*.swp', '*.swo',
+\  '.DS_Store', '*.plist',
+\  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png', '*.svg',
+\  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+\  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
+\]
+
+
+
+
+
+
+:nnoremap <F9> :set relativenumber!<cr>
+
+
